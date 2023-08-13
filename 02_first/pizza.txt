@@ -1,0 +1,5 @@
+Reservierungen    Pizzas
+13                33
+2                 16
+14                32
+23                51
