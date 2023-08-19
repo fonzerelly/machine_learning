@@ -44,7 +44,7 @@ plt.ylabel("Pizzas", fontsize=30)
 
 
 X, Y = np.loadtxt("pizza.txt", skiprows=1, unpack=True)
-w, b = train(X, Y, iterations=100000, lr=0.01)
+w, b = train(X, Y, iterations=100000, lr=0.001)
 
 print("\nw=%.3f b=%.3f" % (w, b))
 
@@ -57,5 +57,5 @@ YDach = predict(XDach, w,b)
 plt.plot(XDach, YDach)
 
 plt.plot(X,Y, "bo")
-print(loss(np.array([3]), np.array([9]), 0.5, 0.5))
+# print(loss(np.array([3]), np.array([9]), 0.5, 0.5))
 plt.savefig("plot.png")
