@@ -44,7 +44,7 @@ plt.ylabel("Pizzas", fontsize=30)
 
 
 X, Y = np.loadtxt("pizza.txt", skiprows=1, unpack=True)
-w, b = train(X, Y, iterations=100000, lr=0.001)
+w, b = train(X, Y, iterations=100000, lr=1)
 
 print("\nw=%.3f b=%.3f" % (w, b))
 
