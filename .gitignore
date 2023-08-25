@@ -1,3 +1,6 @@
 *.png
+!04_hyperspace/with_bias/*.png
+!04_hyperspace/without_bias/*.png
 ToDo.txt
 code
+**/__pycache__
