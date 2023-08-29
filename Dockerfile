@@ -12,8 +12,13 @@ RUN pip install --upgrade pip
 COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install python-mnist
+RUN mkdir /usr/scripts && \
+    echo "export PATH=$PATH:/usr/scripts" >> /root/.bashrc && \
+    echo "mnist_preview --data /usr/src/mnist --id \$1" >> /usr/scripts/mnist.sh && \
+    chmod 777 /usr/scripts/mnist.sh
 
-COPY . .
+COPY ./mnist /usr/src/mnist
 
 #CMD ["python3", "./index.py"]
 CMD ["bash"]
