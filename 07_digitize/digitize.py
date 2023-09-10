@@ -1,6 +1,8 @@
 import mnist as data
 import numpy as np
 import os.path as path
+import sys
+from PIL import Image, ImageEnhance, ImageFilter
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
@@ -38,7 +40,6 @@ def train(X, Y, iterations, lr):
     return w
 
 def report(iteration, X_train, Y_train, X_test, Y_test, w):
-    # also die ausgaben hiermachen keinen sinn - liegt es daran, das ich X_test und Y_test global übergebe?!? warum - checken
     matches = np.count_nonzero(classify(X_test, w) == Y_test)
     n_test_examples = Y_test.shape[0]
     matches_rate = matches * 100.0 / n_test_examples
@@ -54,3 +55,27 @@ if __name__ == '__main__':
         w = train(data.X_train, data.Y_train, iterations=200, lr=1e-5)
         np.save('.training_data', w)
     
+
+    img = Image.open(sys.argv[1])
+    img.save('./.original.png')
+    info = img.info
+    print(info)
+
+
+    kontrast = ImageEnhance.Contrast(img)
+    img_enhanced = ImageEnhance.Brightness(kontrast.enhance(5.0)).enhance(3.0).filter(ImageFilter.EDGE_ENHANCE_MORE)
+    img_enhanced.save('./.enhanced.png')
+    img_resized = img_enhanced.resize((28, 28))
+    img_gray = img_resized.convert('L')
+    img_gray.save('./.final.png')
+    img_array = np.array(img_gray)
+    print(img_array.shape)
+    images = img_array.reshape(1,-1)
+    print(images.shape)
+    images_with_bias = data.prepend_bias(images)
+    print(images_with_bias.shape)
+    inverted_img_array = 255 - images_with_bias
+    print(inverted_img_array.shape)
+    result = classify(inverted_img_array, w)
+
+    print ("Classified:", result[0][0])
