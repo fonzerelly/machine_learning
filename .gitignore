@@ -5,7 +5,7 @@ ToDo.txt
 code
 **/__pycache__
 **/.training_data.npy
-!07_digitize/*.png
+!07_digitize/**/*.png
 07_digitize/.original.png
 07_digitize/.enhanced.png
 07_digitize/.final.png
